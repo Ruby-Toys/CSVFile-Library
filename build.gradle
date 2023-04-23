@@ -26,3 +26,9 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+task buildFatJar(type: Jar){
+    duplicatesStrategy = DuplicatesStrategy.WARN
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
